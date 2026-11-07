@@ -60,7 +60,35 @@ Las credenciales pueden proporcionarse de dos maneras:
    Connect-tptPostgreDB -Server 'localhost' -Port 5432 -Database 'postgres' -Username 'admin'
    ```
 
-En el futuro, se añadirá soporte para archivos de configuración YAML en `~/.tpt/tptPostgreDB.yaml`.
+# Configuración
+
+El módulo utiliza un fichero centralizado de configuración YAML para todas las plataformas TPT: `~/.tpt/tpt_config.yaml`.
+
+**Sección para tptPostgreDB:**
+```yaml
+platforms:
+  tptPostgreDB:
+    - name: postgres-prod
+      server: postgres-prod.corp.local
+      port: 5432
+      database: postgres
+      default: true
+      tags: [producción]
+    - name: postgres-lab
+      server: postgres-lab.local
+      port: 5432
+      database: postgres
+      default: false
+      tags: [laboratorio]
+```
+
+- **`server`**: FQDN o IP del servidor PostgreSQL.
+- **`port`**: Puerto del servidor (por defecto 5432).
+- **`database`**: Nombre de la base de datos.
+- **`default`**: Marca la plataforma predeterminada (solo una debe ser `true`).
+- **`tags`**: Lista libre para clasificación.
+
+**Nota:** Las credenciales NO deben incluirse en este fichero. Usar `Get-Credential` al conectarse.
 
 ## Licencia
 
